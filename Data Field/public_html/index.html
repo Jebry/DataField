@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Data Field</title>
+
+    </head>
+    <script>
+
+        window.addEventListener("DOMContentLoaded", function () {
+            var form = document.getElementById("form");
+            arrayfield1 = [];
+            arrayfield2 = [];
+            arrayfield3 = [];
+            arrayfield4 = [];
+            dataSaveArray = [arrayfield1, arrayfield2, arrayfield3, arrayfield4];
+
+
+
+            if (localStorage.r) {
+                // localStorage.removeItem("r");
+                var dataSaveArray = JSON.parse(localStorage.r);
+            }
+            var f1 = document.getElementById("fD1");
+            var f2 = document.getElementById("fD2");
+            var f3 = document.getElementById("fD3");
+            var f4 = document.getElementById("fD4");
+            // var lf1= document.getElementById("lfD1");
+            // var lf2= document.getElementById("lfD2");
+            // var lf3= document.getElementById("lfD3");
+            // var lf4= document.getElementById("lfD4");
+            var field1 = document.getElementById("field1");
+            var field2 = document.getElementById("field2");
+            var field3 = document.getElementById("field3");
+            var field4 = document.getElementById("field4");
+            var submit = document.getElementById("submit");
+
+            body1 = document.getElementById("body");
+
+            body1.addEventListener("change", function () {
+                if (field1.checked || field2.checked || field3.checked || field4.checked) {
+                    submit.style.display = "inline-block";
+                }
+
+                if (field1.checked) {
+                    f1.style.display = "inline-block";
+                } else {
+                    f1.style.display = "none";
+                }
+
+                if (field2.checked) {
+                    f2.style.display = "inline-block";
+                } else {
+                    f2.style.display = "none";
+                }
+
+
+                if (field3.checked) {
+                    f3.style.display = "inline-block";
+                } else {
+                    f3.style.display = "none";
+                }
+
+                if (field4.checked) {
+                    f4.style.display = "inline-block";
+                } else {
+                    f4.style.display = "none";
+                }
+
+
+
+            });
+
+            submit.addEventListener("click", function (e) {
+                e.preventDefault();
+                // if ( !food.value.match(/^melon$/i) ) {
+                //   // alert("enter correct food");
+
+
+                if (field1.checked) {
+                    if (f1.value == "" || !f1.value.match(/^[A-Z][a-z]*$/)) {
+                        alert("Should be valid Name such as Bashar");
+
+                    } else {
+                        dataSaveArray[0].push(f1.value);
+                    }
+                }
+                if (field2.checked) {
+
+
+                    dataSaveArray[1].push(f2.value);
+                }
+
+
+                if (field3.checked) {
+                    if (f3.value == "" || !f3.value.match(/^[0-9]*$/)) {
+                        alert("Ender Digit Number");
+                    } else {
+                        dataSaveArray[2].push(f3.value);
+                    }
+                }
+
+                if (field4.checked) {
+
+                    dataSaveArray[3].push(f4.value);
+
+                }
+
+
+                localStorage.r = JSON.stringify(dataSaveArray);
+                // <tr>
+                //     <td>Alfreds Futterkiste</td>
+                //     <td>Maria Anders</td>
+                //     <td>Germany</td>
+                //   </tr>
+            });
+
+            table = document.getElementById("table");
+            var longestArray = 0;//to find longest array inside dataSaveArray
+            for (var i = 0; i < dataSaveArray.length; i++) {
+                for (var j = 0; j < dataSaveArray[i].length; j++) {
+                    longestArray = Math.max(longestArray, j);
+
+                }
+            }
+            var e = 0;// this varaiable to read through the arrayes that inside the dataSaveArray
+            while (longestArray != -1) {
+                newRow = document.createElement("tr");
+                for (var i = 0; i < 4; i++) {
+                    if (dataSaveArray[i][e] == null) {
+                        dataSaveArray[i][e] = "No Information";
+                    }
+                }
+                newRow.innerHTML = '<td>' + dataSaveArray[0][e] + '</td>' + '<td>' + dataSaveArray[1][e]
+                        + '</td>' + '<td>' + dataSaveArray[2][e] + '</td>' + '<td>' + dataSaveArray[3][e] + '</td>';
+
+                table.appendChild(newRow);
+                e++;
+                longestArray--;
+            }
+
+        });
+
+    </script>
+
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        h1{ text-align: center}
+        #fD1, #fD2, #fD3, #fD4, #submit{
+            display :none;
+        }
+
+    </style>
+    <body id="body">
+        <h1> Information About Your Laugh</h1>
+        <!-- <label><input type="checkbox" name="field1" id="field1">Your Name Field</label> -->
+        <!-- <label><input type="checkbox" name="field2" id="field2" value="y"> Time Of Laughing Field </label> -->
+        <!-- <label><input type="checkbox" name="field3" id="field3" value="y"> Your Laugh Length Field</label> -->
+        <!-- <label><input type="checkbox" name="dield4" id="field4" value="y"> Your Laugh Type Field</label> -->
+        <form id="form" action="index.html" method="post">
+            <label><input type="checkbox" name="field1" id="field1">Your Name Field</label>
+            <input type='text' name='fD1' id='fD1'>
+
+            <label><input type="checkbox" name="field2" id="field2" value="y"> Time Of Laughing Field </label>
+            <select name='fD2' id='fD2'>
+                <option value="morning">Morning</option>
+                <option value="evening">Evening</option>
+                <option value="midnight">Midnight</option>
+                <option value="everytime">everytime</option>
+            </select>
+            <!-- <input type='text' name='fD2' id='fD2'> -->
+
+            <br><label><input type="checkbox" name="field3" id="field3" value="y"> How Long Does Your Laugh Take:</label>
+            <input type='text' name='fD3' id='fD3'>
+
+            <label><input type="checkbox" name="dield4" id="field4" value="y"> Your Laugh Type Field:</label>
+            <select name='fD4' id='fD4'>
+                <option value="HeHeHe">HeHeHeHe</option>
+                <option value="HoHoHo">HoHoHo</option>
+                <option value="No Sound">No Sound</option>
+                <option value="Prefer Not TO Say">Prefer Not TO Say</option>
+            </select>
+            <br><input type="submit" name="submit" id="submit">
+        </form>
+        <table id="table">
+            <tr>
+                <th>The Laugher's Name</th>
+                <th>Favorite Time Of Laughing</th>
+                <th>The Duration Time Of Your Laugh</th>
+                <th>How Do You Laugh?</th>
+            </tr>
+        </table>
+    </body>
+</html>
+

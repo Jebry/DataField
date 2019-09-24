@@ -1,0 +1,15 @@
+{
+    "name": "Data_Field",
+    "version": "1.0.0",
+    "keywords": [
+        "util",
+        "functional",
+        "server",
+        "client",
+        "browser"
+    ],
+    "author": "User_2",
+    "contributors": [
+    ],
+    "dependencies": {}
+}
